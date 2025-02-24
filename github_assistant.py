@@ -1,7 +1,7 @@
 import os
 import requests
 import google.generativeai as genai
-from getpass import getpass
+from app import main as get_api_keys
 
 class GitHubAssistant:
     def __init__(self):
@@ -11,12 +11,17 @@ class GitHubAssistant:
         
     def setup_apis(self):
         print("\n=== GitHub & Gemini Assistant Setup ===")
-        self.github_token = getpass("Enter your GitHub token: ")
-        self.gemini_key = getpass("Enter your Gemini API key: ")
-        
-        # Configure Gemini
-        genai.configure(api_key=self.gemini_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        # Use the new API key management system
+        api_keys = get_api_keys()
+        if api_keys:
+            self.github_token = api_keys.get("GITHUB_API_KEY")
+            self.gemini_key = api_keys.get("GEMINI_API_KEY")
+            
+            # Configure Gemini
+            genai.configure(api_key=self.gemini_key)
+            self.model = genai.GenerativeModel('gemini-pro')
+            return True
+        return False
 
     def get_user_repos(self):
         headers = {
@@ -63,7 +68,9 @@ class GitHubAssistant:
 
 def main():
     assistant = GitHubAssistant()
-    assistant.setup_apis()
+    if not assistant.setup_apis():
+        print("Failed to set up API keys. Exiting...")
+        return
     
     while True:
         print("\n=== GitHub & Gemini Assistant Menu ===")
