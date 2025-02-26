@@ -47,3 +47,31 @@ this is a test repo
 WOrKING / 
 Testing
 Author --> Yuvraj Singh on Ipad pro
+
+## New Feature: GIThelper Plugin
+
+A new Git plugin has been added to help you merge multiple branches and automatically resolve conflicts. This plugin integrates with Google's Gemini AI to intelligently resolve merge conflicts when needed.
+
+### GIThelper Features
+
+- Merge multiple branches (2 or more) into a temporary branch
+- Clearly show what branches are being merged
+- Identify conflicts that occur during merging
+- Provide options to resolve conflicts:
+  - Manually (choose between versions or create custom resolution)
+  - Automatically using Gemini AI
+- Show a detailed summary of the merge process
+
+### Using GIThelper
+
+For detailed instructions on how to use the GIThelper plugin, see [GITHELPER_README.md](GITHELPER_README.md).
+
+Basic usage:
+```bash
+python git_helper.py merge-multi branch1 branch2 [branch3 ...]
+```
+
+For AI-assisted conflict resolution:
+```bash
+python git_helper.py merge-multi --ai branch1 branch2 [branch3 ...]
+```
